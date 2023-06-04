@@ -17,5 +17,6 @@ namespace TareasMVC
         }
 
         public DbSet<Tarea> Tareas { get; set; }
+        public DbSet<Paso> Pasos { get; set; }
     }
 }
