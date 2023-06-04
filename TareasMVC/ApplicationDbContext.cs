@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using TareasMVC.Entidades;
 
 namespace TareasMVC
 {
@@ -7,5 +8,7 @@ namespace TareasMVC
         public ApplicationDbContext(DbContextOptions options) : base(options)
         {
         }
+
+        public DbSet<Tarea> Tareas { get; set; }
     }
 }
