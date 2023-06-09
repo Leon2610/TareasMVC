@@ -20,8 +20,9 @@ namespace TareasMVC.Controllers
         [HttpGet]
         public async Task<List<Tarea>> Get()
         {
-            var tareas = await context.Tareas.ToListAsync();
-            return tareas;
+            var usuarioId = servicioUsuarios.ObtenerUsuarioId();
+            return await context.Tareas.Where(t => t.UsuarioCreacionId == usuarioId).ToListAsync();
+
         }
 
         [HttpPost]
