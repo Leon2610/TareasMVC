@@ -17,6 +17,13 @@ namespace TareasMVC.Controllers
             this.servicioUsuarios = servicioUsuarios;
         }
 
+        [HttpGet]
+        public async Task<List<Tarea>> Get()
+        {
+            var tareas = await context.Tareas.ToListAsync();
+            return tareas;
+        }
+
         [HttpPost]
         public async Task<ActionResult<Tarea>> Post([FromBody] string titulo)
         {
