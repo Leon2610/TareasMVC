@@ -110,6 +110,41 @@ async function manejarClickTarea(tarea) {
     modalEditarTareaBootstrap.show();
 }
 
+async function manejarCambioEditarTarea() {
+    const ob = {
+        id: tareaEditarVM.id,
+        titulo: tareaEditarVM.titulo(),
+        descripcion: tareaEditarVM.descripcion()
+    };
+
+    if (!ob.titulo) {
+        return;
+    }
+
+    await editarTareaCompleta(ob);
+
+    const indice = tareaListadoViewModel.tareas().findIndex(t => t.id() === ob.id);
+    const tarea = tareaListadoViewModel.tareas()[indice];
+    tarea.titulo(ob.titulo);
+}
+
+async function editarTareaCompleta(tarea) {
+    const data = JSON.stringify(tarea);
+
+    const respuesta = await fetch(`${urlTareas}/${tarea.id}`, {
+        method: 'PUT',
+        body: data,
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
+
+    if (!respuesta.ok) {
+        manejarErrorApi(respuesta);
+        throw "error";
+    }
+}
+
 $(function () {
     $("#reordenable").sortable({
         axis: 'y',
